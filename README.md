@@ -22,17 +22,3 @@ Install the requirements:
 pip install -r requirements.txt
 ```
 
-Next, install some checkpoints for the mv_adapter:
-```python
-from huggingface_hub import hf_hub_download
-hf_hub_download(
-    repo_id='dtarnow/UPscaler', 
-    filename='RealESRGAN_x2plus.pth', 
-    local_dir='./Perspective-Edit/mv_adapter/checkpoints')
-```
-
-```bash
-wget -q --show-progress -O /kaggle/working/Perspective-Edit/mv_adapter/checkpoints/big-lama.pt https://github.com/Sanster/models/releases/download/add_big_lama/big-lama.pt
-```
-
-
