@@ -39,7 +39,6 @@ def rotate(mesh_path, angle):
         distance=[1.8], left=-0.55*SCALE, right=0.55*SCALE, bottom=-0.55*SCALE, top=0.55*SCALE, device=DEVICE
     )
 
-    print(camera)
     
     print("Rendering")
     
@@ -56,7 +55,7 @@ def rotate(mesh_path, angle):
                 break
     
     img_3d = (np.clip(color_tensor[0].cpu().numpy(), 0.0, 1.0) * 255).astype(np.uint8)
-    cv2.imwrite('materials/rotated_img.png')
+    cv2.imwrite('materials/rotated_img.png', img_3d)
     print("Done!")
 
 
