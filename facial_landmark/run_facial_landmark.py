@@ -170,7 +170,7 @@ def run(img_path, rotated_img_path, mask_path):
 
     print("Creating final seamless blend...")
 
-    cv2.imwrite("debug_pur_face_mask_orig.png", pure_face_mask_orig)
+    cv2.imwrite("debug_only_face_result.png", pure_face_mask_orig)
 
     x, y, w, h = cv2.boundingRect(pure_face_mask_orig)
     h_dst, w_dst = img.shape[:2]
