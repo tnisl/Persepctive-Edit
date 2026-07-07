@@ -187,7 +187,6 @@ def facial_landmark(img_path, rotated_img_path, mask_path):
 
 
 if __name__ == "__main__":
-    main()
 
     parser = argparse.ArgumentParser()
 
