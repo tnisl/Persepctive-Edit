@@ -169,6 +169,8 @@ def run(img_path, rotated_img_path, mask_path):
     print(c_bbox)
     
     print("Creating final seamless blend...")
+
+    cv2.imwrite("debug_pur_face_mask_orig.png", pure_face_mask_orig)
     
     # Final seamless clone with segmented face
     result = cv2.seamlessClone(
