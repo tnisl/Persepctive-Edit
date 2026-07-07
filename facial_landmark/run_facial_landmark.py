@@ -165,6 +165,8 @@ def run(img_path, rotated_img_path, mask_path):
     only_face_result = (img_bgr * mask_3ch).astype(np.uint8)
 
     print(f"Debug only_face_result: {only_face_result.shape}")
+
+    print(c_bbox)
     
     print("Creating final seamless blend...")
     
