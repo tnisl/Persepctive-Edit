@@ -112,19 +112,14 @@ def run(img_path, rotated_img_path, mask_path):
     reverse_matrix = np.float32([[1, 0, -vector[0]],
                                  [0, 1, -vector[1]]])
     
-    moved_mask = cv2.warpAffine(mask, translation_matrix, (1024, 1024), borderValue=(0, 0, 0)) / 255
+    moved_mask = cv2.warpAffine(mask, translation_matrix, (1024, 1024), borderValue=(0, 0, 0))
 
     
     # Calculate bounding box for seamless clone
-    if len(mask.shape) == 3:
-        mask_gray = cv2.cvtColor(moved_mask, cv2.COLOR_BGR2GRAY)
-    else:
-        mask_gray = moved_mask.copy()
     
-    if mask_gray.max() <= 1.0:
-        mask_gray = (mask_gray * 255).astype(np.uint8)
-    else:
-        mask_gray = mask_gray.astype(np.uint8)
+    mask_gray = cv2.cvtColor(moved_mask, cv2.COLOR_BGR2GRAY)
+
+    mask_gray = mask_gray.astype(np.uint8)
     
     x, y, w, h = cv2.boundingRect(mask_gray)
     center = (x + w // 2, y + h // 2)
