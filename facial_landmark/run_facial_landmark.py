@@ -141,15 +141,13 @@ def run(img_path, rotated_img_path, mask_path):
     print("Segmenting face...")
     
     # Read and prepare image for BiSeNet
-    img_bgr = cv2.imread(rotated_img_path)
-    img_bgr = cv2.resize(img_bgr, (HEIGHT, WIDTH))
-    h_orig, w_orig = img_bgr.shape[:2]
+    img_rgb = cv2.imread(rotated_img_path)
+    img_rgb = cv2.resize(img_rgb, (HEIGHT, WIDTH))
+    h_orig, w_orig = img_rgb.shape[:2]
     
-    img_resized = cv2.resize(img_bgr, (512, 512))
-    img_rgb = cv2.cvtColor(img_resized, cv2.COLOR_BGR2RGB)
+    img_rgb = cv2.resize(img_rgb, (512, 512))
     tensor_img = transform(img_rgb).unsqueeze(0)
 
-    cv2.imwrite('img_rgb.png', img_resized)
     
     # Run BiSeNet inference
     tensor_img = tensor_img.to(device)
@@ -164,7 +162,7 @@ def run(img_path, rotated_img_path, mask_path):
     pure_face_mask_orig = cv2.resize(pure_face_mask, (w_orig, h_orig))
     
     mask_3ch = np.repeat(pure_face_mask_orig[:, :, np.newaxis], 3, axis=2) / 255.0
-    only_face_result = (rotated_img * mask_3ch).astype(np.uint8)
+    only_face_result = (img_rgb * mask_3ch).astype(np.uint8)
 
     print(f"Debug only_face_result: {only_face_result.shape}")
 
