@@ -162,7 +162,7 @@ def run(img_path, rotated_img_path, mask_path):
     pure_face_mask_orig = cv2.resize(pure_face_mask, (w_orig, h_orig))
     
     mask_3ch = np.repeat(pure_face_mask_orig[:, :, np.newaxis], 3, axis=2) / 255.0
-    only_face_result = (img_bgr * mask_3ch).astype(np.uint8)
+    only_face_result = (rotated_img * mask_3ch).astype(np.uint8)
 
     print(f"Debug only_face_result: {only_face_result.shape}")
 
@@ -170,7 +170,7 @@ def run(img_path, rotated_img_path, mask_path):
 
     print("Creating final seamless blend...")
 
-    cv2.imwrite("debug_only_face_result.png", pure_face_mask_orig)
+    cv2.imwrite("debug_only_face_result.png", only_face_result)
 
     x, y, w, h = cv2.boundingRect(pure_face_mask_orig)
     h_dst, w_dst = img.shape[:2]
