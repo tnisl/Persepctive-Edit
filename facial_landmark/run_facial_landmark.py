@@ -142,7 +142,7 @@ def run(img_path, rotated_img_path, mask_path):
     
     # Read and prepare image for BiSeNet
     img_bgr = cv2.imread(rotated_img_path)
-    img_bgr = cv2.resize(img_bgr, (1024, 1024))
+    img_bgr = cv2.resize(img_bgr, (HEIGHT, WIDTH))
     h_orig, w_orig = img_bgr.shape[:2]
     
     img_resized = cv2.resize(img_bgr, (512, 512))
@@ -174,29 +174,15 @@ def run(img_path, rotated_img_path, mask_path):
     
     # Final seamless clone with segmented face
     result = cv2.seamlessClone(
-        cv2.cvtColor(only_face_result, cv2.COLOR_BGR2RGB),
+        rotated_img,
         img,
         pure_face_mask_orig,
         (int(c_bbox[0]), int(c_bbox[1])),
         cv2.NORMAL_CLONE
     )
-    
-    # Save final result
-    plt.figure(figsize=(10, 10))
-    plt.imshow(result)
-    plt.axis('off')
-    plt.title('Final Result: Seamless Face Blending with Segmentation')
-    plt.tight_layout()
-    plt.savefig('final_result.png', dpi=150, bbox_inches='tight')
-    plt.close()
-    
-    print("\n" + "="*60)
-    print("Processing completed!")
-    print("="*60)
-    print("\nOutput: final_result.png")
-    print(f"\nCentroid (original): {centroid}")
-    print(f"Centroid (rotated): {rotated_centroid}")
-    print(f"Bounding box center: {c_bbox}")
+
+    cv2.imwrite('materials/result.png', result)
+
 
 
 
