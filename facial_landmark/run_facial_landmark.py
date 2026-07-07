@@ -58,13 +58,11 @@ def run(img_path, rotated_img_path, mask_path):
     
     # Load images
     img = cv2.imread(img_path)
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (HEIGHT, WIDTH))
 
     print(f"Debug rotated: {img.shape}")
     
     rotated_img = cv2.imread(rotated_img_path)
-    rotated_img = cv2.cvtColor(rotated_img, cv2.COLOR_BGR2RGB)
     rotated_img = cv2.resize(rotated_img, (HEIGHT, WIDTH))
 
     print(f"Debug rotated: {rotated_img.shape}")
@@ -196,7 +194,7 @@ def run(img_path, rotated_img_path, mask_path):
 
     moved_content_mask = cv2.warpAffine(content_mask, reverse_matrix, (1024, 1024), borderValue=(0, 0, 0))
 
-    cv2.imwrite('materials/moved_content_mask.png', cv2.cvtColor(moved_content_mask, cv2.COLOR_RGB2BGR))
+    cv2.imwrite('materials/moved_content_mask.png', moved_content_mask)
 
 
 
