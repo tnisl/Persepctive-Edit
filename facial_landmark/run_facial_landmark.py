@@ -64,6 +64,7 @@ def run(img_path, rotated_img_path, mask_path):
     print(f"Debug rotated: {img.shape}")
     
     rotated_img = cv2.imread(rotated_img_path)
+    rotated_img = cv2.cvtColor(rotated_img, cv2.COLOR_BGR2RGB)
     rotated_img = cv2.resize(rotated_img, (HEIGHT, WIDTH))
 
     print(f"Debug rotated: {rotated_img.shape}")
