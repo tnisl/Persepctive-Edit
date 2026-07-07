@@ -28,7 +28,7 @@ from model import BiSeNet
 
 
 
-BISENET_WEIGHT_PATH = '79999_iter.pth'
+BISENET_WEIGHT_PATH = 'facial_landmark/79999_iter.pth'
 
 def facial_landmark(img, fa):
     """Detect facial landmarks"""
