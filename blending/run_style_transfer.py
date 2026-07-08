@@ -17,7 +17,7 @@ from blending_style_transfer import run_blending_style_transfer, download_vgg_mo
 import argparse
 
 
-def run(source_path, target_path, mask_path, style_path):
+def run(source_path, target_path, mask_path, style_path, iters):
     # Download VGG model if not present
     print("Checking VGG model...")
     download_vgg_model()
@@ -42,7 +42,7 @@ def run(source_path, target_path, mask_path, style_path):
         mask_img=mask,
         target_img=target_img,
         style_img=style_img,
-        num_steps=300,  # Adjust for quality vs speed tradeoff
+        num_steps=iters,  # Adjust for quality vs speed tradeoff
         max_side=512
     )
     
@@ -60,10 +60,11 @@ if __name__ == "__main__":
     parser.add_argument("--target_path", type=str)
     parser.add_argument("--mask_path", type=str)
     parser.add_argument("--style_path", type=str)
+    parser.add_argument("--iters", type=int, default=300)
 
     args = parser.parse_args()
 
-    run(args.source_path, args.target_path, args.mask_path, args.style_path)
+    run(args.source_path, args.target_path, args.mask_path, args.style_path, args.iters)
 
 
 
