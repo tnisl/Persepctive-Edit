@@ -22,7 +22,7 @@ from mvadapter.utils.mesh_utils.mesh import load_mesh
 from mvadapter.utils.mesh_utils.camera import get_orthogonal_camera
 
 
-def rotate(mesh_path, output_path, angle):
+def rotate(mesh_path, output_path, azimuth, elevation):
     print("="*10)
     print("Rendering new view")
 
@@ -35,7 +35,7 @@ def rotate(mesh_path, output_path, angle):
 
     print("Create camera")
     camera = get_orthogonal_camera(
-        elevation_deg=[0], azimuth_deg=[angle - 90],
+        elevation_deg=[elevation], azimuth_deg=[azimuth - 90],
         distance=[1.8], left=-0.55*SCALE, right=0.55*SCALE, bottom=-0.55*SCALE, top=0.55*SCALE, device=DEVICE
     )
 
@@ -65,11 +65,12 @@ if __name__ == "__main__":
 
     parser.add_argument("--mesh_path", type=str)
     parser.add_argument("--output_path", type=str)
-    parser.add_argument("--angle", type=float)
+    parser.add_argument("--azimuth", type=float)
+    parser.add_argument("--elevation", type=float)
 
     args = parser.parse_args()
 
-    rotate(args.mesh_path, args.output_path, args.angle)
+    rotate(args.mesh_path, args.output_path, args.azimuth, args.elevation)
 
 
 
