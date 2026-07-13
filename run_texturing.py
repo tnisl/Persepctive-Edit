@@ -21,12 +21,16 @@ MV_ADAPTER_CODE_DIR = os.path.join(BASE_DIR, "mv_adapter")
 sys.path.append(MV_ADAPTER_CODE_DIR)
 sys.path.append(os.path.join(MV_ADAPTER_CODE_DIR, "scripts"))
 
+CHECKPOINT_DIR = os.path.join("mv_adapter", "checkpoints")
 
 from inference_ig2mv_sdxl import prepare_pipeline, remove_bg, preprocess_image, run_pipeline
 from mvadapter.utils import get_orthogonal_camera, tensor_to_image, make_image_grid, get_plucker_embeds_from_cameras_ortho
 from mvadapter.utils.mesh_utils.render import NVDiffRastContextWrapper, render
 from mvadapter.utils.mesh_utils.mesh import load_mesh
 from texture import TexturePipeline, ModProcessConfig
+
+from huggingface_hub import hf_hub_download
+
 
 
 def run_texturing(img_path, mesh_path, output_path):
@@ -129,6 +133,21 @@ def run_texturing(img_path, mesh_path, output_path):
     print(f"Done, saved at: {textured_glb_path}")
 
 if __name__ == "__main__":
+
+
+    hf_hub_download(
+        repo_id='dtarnow/UPscaler', 
+        filename='RealESRGAN_x2plus.pth', 
+        local_dir='./mv_adapter/checkpoints')
+    
+    subprocess.run(["wget",
+                    "-q",
+                    "--show-progress",
+                    "-O", CHECKPOINT_DIR + "/" + "big-lama.pt",
+                    "https://github.com/Sanster/models/releases/download/add_big_lama/big-lama.pt"],
+                   check=True)
+
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--img_path", type=str, help="Image path")
